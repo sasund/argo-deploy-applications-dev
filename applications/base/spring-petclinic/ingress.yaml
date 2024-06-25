@@ -7,10 +7,10 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: api.local.nb.no
+  - host: petclinic.dev.no
     http:
       paths:
-      - path: /catalog/v1/contentsearch
+      - path: /
         pathType: Prefix
         backend:
           service:

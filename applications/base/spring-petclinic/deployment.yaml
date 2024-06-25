@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-iiif-content-search
+  name: spring-petclinic
   labels:
-    app: catalog-iiif-content-search
+    app: spring-petclinic
 spec:
   selector:
     matchLabels:
-      app: catalog-iiif-content-search
+      app: spring-petclinic
   replicas: 1 # tells deployment to run 3 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: catalog-iiif-content-search
+        app: spring-petclinic
     spec:
       serviceAccountName: nbno
       containers:
-        - name: catalog-iiif-content-search
-          image: harbor.nb.no/nb/catalog-iiif-content-search-service-rest:3.2.1-72
+        - name: spring-petclinic
+          image: harbor.nb.no/nbtest/spring-petclinic:3.3.0-SNAPSHOT
           imagePullPolicy: Always
           ports:
-            - containerPort: 8009
+            - containerPort: 8080
           env:
             - name: JAVA_OPTS
               value: -Dspring.profiles.active=docker,dev,auaulocal
@@ -30,7 +30,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8009
+              port: 8080
             initialDelaySeconds: 300
             periodSeconds: 10
             successThreshold: 1
@@ -38,7 +38,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8009
+              port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
             successThreshold: 1
