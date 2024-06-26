@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dev
+  namespace: dev
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dev-full-access
+  namespace: dev
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dev
+  namespace: dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: dev-full-access
+subjects:
+- kind: Group
+  name: k8s_nasa
+- kind: Group
+  name: k8s_newton
+- kind: ServiceAccount
+  name: dev
+  namespace: dev

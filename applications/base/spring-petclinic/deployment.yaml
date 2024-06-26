@@ -14,7 +14,7 @@ spec:
       labels:
         app: spring-petclinic
     spec:
-      serviceAccountName: nbno
+      serviceAccountName: dev
       containers:
         - name: spring-petclinic
           image: harbor.nb.no/nbtest/spring-petclinic:3.3.0-SNAPSHOT
